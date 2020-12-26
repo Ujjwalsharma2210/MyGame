@@ -1,26 +1,11 @@
 import random as rand
-# import time
 
-# ----GLOBAL----
 positionOfKeys = []
-
-currentPositionOfPlayer = ()
-
-# Size of grid
-max = 3
-min = 3
-
-# Initial position of player
-x = y = 0
-
-# State of the game : Running or not
 gameRunning = True
-
-# def printGrid():
-
-
-# Returns True if one of the input values is 0
-# and returns False if none of the values is 0
+x = y = 0
+#
+# # Returns True if one of the input values is 0
+# # and returns False if none of the values is 0
 def oneIsZero(x, y):
     if x == 0 or y == 0:
         return True
@@ -53,9 +38,9 @@ def spawnKeys():
 
         positionOfKeys.append((x, y))
 
-    return positionOfKeys
+    print(positionOfKeys)
 
-# Everytime the player makes a move this function return values of x and y
+
 def makeMove():
 
     global x
@@ -75,7 +60,8 @@ def makeMove():
 
     return x, y
 
-# Runs the game
+#
+# spawnKeys()
 def startGame():
     print("To wander around in this world\n"
           "Type up, down, right or left\n"
@@ -83,30 +69,25 @@ def startGame():
 
     keys = spawnKeys()
     while gameRunning:
-        position = makeMove()
-        if position in keys:
-            pass
+        if (makeMove()) in keys:
+            print("A KEY was found")
 
-# main function Which asks to start the game
-def playGame():
-    playerName = input("\nHello wanderer! What's your name?\n")
-    print()
-    print("Hello " + playerName + ", Welcome to the world of blocks!\n"
-          "This world is cursed by the demon king ZAARU, You are sent here to save us\n"
-          "The person who comes here can only move up, down, right or left by making a wish.\n"
-          "Collect the keys and open doors to find relics which will help you to defeat the demon...\n"
-          "Are you ready for the adventure?")
-    print()
-    initiation = input("Enter y or n : ")
-    if initiation == "y":
-        startGame()
-    elif initiation == "n":
-        print("Come prepared next time!\n"
-              "We need you")
-        exit()
-
-
-playGame()
-
-# Current position
-# path or previous positions the player has been in.
+startGame()
+# def printGrid(val):
+#     # The grid will always be square
+#     # This grid will show the position of the spawned keys of the level
+#     gird = []
+#     # -x, y -> x++
+#     #   |
+#     #   V
+#     #  y--
+#
+#     # Creating grid using above logic
+#     for x in range(-val, val+1):
+#         for y in range(val, -(val-1)):
+#             print((i, j))
+#             val -= 1
+#         print()
+#         val += 1
+#
+# printGrid(2)
