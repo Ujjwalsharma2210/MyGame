@@ -69,8 +69,10 @@ def startGame():
 
     keys = spawnKeys()
     while gameRunning:
-        if (makeMove()) in keys:
-            print("A KEY was found")
+        playerPosition = makeMove()
+        for element in keys:
+            if element == playerPosition:
+                print("A KEY WAS FOUND!!!!")
 
 startGame()
 # def printGrid(val):
