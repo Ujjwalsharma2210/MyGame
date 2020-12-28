@@ -16,8 +16,14 @@ x = y = 0
 # State of the game : Running or not
 gameRunning = True
 
+# Tells if the current position is a corner or not
+isCorner = False
+# Tells if the current position is an edge or not
+isEdge = False
+
 # number of keys
 numberOfKeys = 3
+
 
 # Returns True if one of the input values is 0
 # and returns False if none of the values is 0
@@ -56,6 +62,9 @@ def spawnKeys():
     return positionOfKeys
 
 
+keys = spawnKeys()
+
+
 # Everytime the player makes a move this function return values of x and y
 def makeMove():
 
@@ -63,13 +72,13 @@ def makeMove():
     global y
     # Increment and decrement x and y as per input
     move = input("Move to : ")
-    if move == "up":
+    if move == "w":
         y += 1
-    elif move == "down":
+    elif move == "s":
         y -= 1
-    elif move == "right":
+    elif move == "d":
         x += 1
-    elif move == "left":
+    elif move == "a":
         x -= 1
     else:
         print("Wrong move! Type right, left, up or down.")
@@ -77,23 +86,71 @@ def makeMove():
     return x, y
 
 
-keys = spawnKeys()
-
-
 def checkKeys(numberOfKeys):
 
     global keys
+    allFound = False
 
     if numberOfKeys == len(keys):
-        print("ALL THE KEYS HAVE BEEN FOUND")
+        allFound = True
+
+    return allFound
 
 
-def checkPlayerPosition(playerCoordinates):
-    global currentPositionOfPlayer
+def checkForCorner(playerCurrentPosition):
+
+    global max, min
+    global isCorner
+
+    x, y = playerCurrentPosition
+    if x == max and y == max:
+        print("You have reached upper right corner")
+        isCorner = True
+    elif x == max and y == min:
+        print("You have reached lower right corner")
+        isCorner = True
+    elif x == min and y == max:
+        print("You have reached upper left corner")
+        isCorner = True
+    elif x == min and y == min:
+        print("You have reached lower left corner")
+        isCorner = True
+
+    return isCorner
+
+
+def checkForEdge(playerCurrentPosition):
+
+    global max, min
+    global isCorner, isEdge
+
+    x, y = playerCurrentPosition
+
+    if not isCorner:
+        if x == max:
+            print("You are at the right edge")
+        elif x == min:
+            print("You are at left edge")
+        elif y == max:
+            print("You are at top edge")
+        elif y == min:
+            print("You are at bottom edge")
+
+
+def checkPlayerPosition(playerCurrentPosition):
+
+    checkForCorner(playerCurrentPosition)
+
+    checkForEdge(playerCurrentPosition)
+
+
+def finalRound():
+    # TODO: complete the second and final round
+    pass
 
 
 # Runs the game
-def startGame():
+def playGame():
     print("To wander around in this world\n"
           "Type up, down, right or left\n"
           "Start roaming and explore !!!\n")
@@ -118,27 +175,36 @@ def startGame():
                 print("A KEY WAS FOUND!!!!")
                 keyCount += 1
 
-        checkKeys(keyCount)
+        # Checks and tells the player if all the keys have been found
+        if checkKeys(keyCount):
+            print("ALL THE KEYS HAVE BEEN FOUND!!")
+            print("Now you are worthy of finding the sword.")
+            print("If you meet ZAARU before finding the sword you will die!")
 
+            # Second round of the game.
+            # Player has to find the sword before the demon to win
+            # If the player finds the demon first, player dies and game ends
+            finalRound()
 
 # main function Which asks to start the game
-def playGame():
+def startGame():
     # Input player name and print welcome sentence
     playerName = input("\nHello wanderer! What's your name?\n")
     print()
     print("Hello " + playerName + ", Welcome to the world of blocks!\n"
           "This world is cursed by the demon king ZAARU, You are sent here to save us\n"
-          "You can type where you want to go like up, down, right or left.\n"
+          "You can move around by using w, a, s, d to go up, left, down and right respectively.\n"
           "Collect the keys and find the sword first to kill ZAARU.\n"
-          "Are you ready for the adventure?")
+          "Are you ready for the adventure?\n"
+          "One more important thing, If you get lost you will not be able to find your way again.")
     print()
     initiation = input("Enter y or n : ")
     if initiation == "y":
-        startGame()
+        playGame()
     elif initiation == "n":
         print("Come prepared next time!\n"
               "We need you")
         exit()
 
 
-playGame()
+startGame()
