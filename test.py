@@ -1,42 +1,4 @@
 import random as rand
-# import sys,tty,termios
-#
-#
-# class _Getch:
-#     def __call__(self):
-#         fd = sys.stdin.fileno()
-#         old_settings = termios.tcgetattr(fd)
-#         try:
-#             tty.setraw(sys.stdin.fileno())
-#             ch = sys.stdin.read(3)
-#         finally:
-#             termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
-#         return ch
-#
-#
-# def get():
-#     inkey = _Getch()
-#     while(1):
-#         k=inkey()
-#         if k!='':break
-#     if k=='\x1b[A':
-#         print("up")
-#     elif k=='\x1b[B':
-#         print("down")
-#     elif k=='\x1b[C':
-#         print("right")
-#     elif k=='\x1b[D':
-#         print("left")
-#     else:
-#         print("not an arrow key!")
-#
-# def main():
-#     for i in range(0,20):
-#         get()
-#
-# if __name__=='__main__':
-#     main()
-
 
 # import cv2
 #
@@ -129,6 +91,8 @@ import random as rand
 #
 #     if numberOfKeys == len(keys):
 #         print("ALL THE KEYS HAVE BEEN FOUND")
+
+
 
 # spawnKeys()
 # def startGame():
@@ -231,8 +195,46 @@ import random as rand
 # checkPlayerPosition()
 
 
-import keyboard
+# import keyboard
+#
+# while True:
+#     if keyboard.read_key() == 'q':
+#         print("Q was pressed")
 
-while True:
-    if keyboard.read_key() == 'q':
-        print("Q was pressed")
+
+# Thia function is called when the player has found all the keys and
+# the next round has started
+def finalRoundnd():
+    pass
+    # Create the maze again
+    # Add two object at different and random positions (sword and demon)
+    # Player will spawn at the center of the maze.
+    # Make sure sword or demon are not where the player spawns.
+    # movement is the same
+    # kill the player and end the game if player finds the demon first
+    # player wins if sword is found first
+    #
+
+
+import itertools
+import threading
+import time
+import sys
+
+done = False
+#here is the animation
+def animate():
+    for c in itertools.cycle(['|', '/', '-', '\\']):
+        if done:
+            break
+        sys.stdout.write('\rloading ' + c)
+        sys.stdout.flush()
+        time.sleep(0.1)
+    sys.stdout.write('\rDone!     ')
+
+t = threading.Thread(target=animate)
+t.start()
+
+#long process here
+time.sleep(10)
+done = True

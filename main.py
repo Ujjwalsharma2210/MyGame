@@ -1,3 +1,10 @@
+###############################################
+#                                             #
+#       Author UjjwalSharma 19/11/2020        #
+#               Version 1.4                   #
+#               							  #
+###############################################
+
 import random as rand
 # import time
 
@@ -185,6 +192,7 @@ def playGame():
             # Player has to find the sword before the demon to win
             # If the player finds the demon first, player dies and game ends
             finalRound()
+
 
 # main function Which asks to start the game
 def startGame():
